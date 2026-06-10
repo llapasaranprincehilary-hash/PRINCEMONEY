@@ -634,7 +634,10 @@ hr{border:none;border-top:1px solid var(--border);margin:18px 0}
         </div>
         <div class="form-group"><label>Amount (₱)</label><input type="number" id="inc-amount" placeholder="0.00" min="0"></div>
       </div>
-      <div class="form-group"><label>Note (optional)</label><input type="text" id="inc-note" placeholder="e.g. from employer, freelance..."></div>
+      <div class="form-row">
+        <div class="form-group"><label>Deposit to Wallet</label><select id="inc-wallet"></select></div>
+        <div class="form-group"><label>Note (optional)</label><input type="text" id="inc-note" placeholder="e.g. from employer, freelance..."></div>
+      </div>
       <button class="btn btn-primary" onclick="addIncome()">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
         Add Entry
@@ -1364,7 +1367,7 @@ function renderIncome(){
     const entries=sorted.filter(e=>(e.year||2026)===yr);
     const yrTotal=entries.reduce((a,b)=>a+b.amount,0);
     html+=`<div style="margin-bottom:6px"><div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0 6px;border-bottom:1px solid var(--border);margin-bottom:2px"><span style="font-size:10px;text-transform:uppercase;letter-spacing:.09em;color:var(--muted2);font-weight:600">${yr}</span><span style="font-size:13px;font-weight:700;color:var(--accent)">${fmt(yrTotal)}</span></div>`;
-    entries.forEach(e=>{html+=`<div class="entry"><div class="info"><div class="name">${e.month}${e.note?' — '+e.note:''}</div><div class="meta"><span class="badge badge-${e.type.toLowerCase()}">${e.type}</span></div></div><div class="right"><span class="amt ap">${fmt(e.amount)}</span><button class="btn btn-danger btn-sm" onclick="del('income',${e.id})">Remove</button></div></div>`;});
+    entries.forEach(e=>{const _iw=(state.wallets||[]).find(w=>w.id===e.wallet);html+=`<div class="entry"><div class="info"><div class="name">${e.month}${e.note?' — '+e.note:''}</div><div class="meta"><span class="badge badge-${e.type.toLowerCase()}">${e.type}</span>${_iw?`<span style="font-size:11px;color:var(--muted)">→ ${_iw.label}</span>`:''}</div></div><div class="right"><span class="amt ap">${fmt(e.amount)}</span><button class="btn btn-danger btn-sm" onclick="del('income',${e.id})">Remove</button></div></div>`;});
     html+='</div>';
   });
   document.getElementById('income-list').innerHTML=html;
@@ -1406,6 +1409,13 @@ function renderBalances(){
     const cur=expSrc.value;
     expSrc.innerHTML=wallets.map(w=>`<option value="${w.id}">${w.label}</option>`).join('');
     if(wallets.find(w=>w.id===cur))expSrc.value=cur;
+  }
+  // update income wallet dropdown
+  const incWal=document.getElementById('inc-wallet');
+  if(incWal){
+    const cur=incWal.value;
+    incWal.innerHTML=wallets.map(w=>`<option value="${w.id}">${w.label}</option>`).join('');
+    if(wallets.find(w=>w.id===cur))incWal.value=cur;
   }
 }
 
@@ -1456,10 +1466,17 @@ function addIncome(){
   const type=document.getElementById('inc-type').value;
   const amount=parseFloat(document.getElementById('inc-amount').value);
   const note=document.getElementById('inc-note').value.trim();
+  const walletId=document.getElementById('inc-wallet').value;
   if(!amount||amount<=0||isNaN(amount)){toast('Enter a valid amount','error');return;}
-  state.income.push({id:uid(),month,year,type,amount,note});
+  // Add to wallet balance
+  const wallet=(state.wallets||[]).find(w=>w.id===walletId);
+  if(wallet){
+    wallet.balance=Math.round((wallet.balance+amount)*100)/100;
+    wallet.updated=today();
+  }
+  state.income.push({id:uid(),month,year,type,amount,note,wallet:walletId});
   document.getElementById('inc-amount').value='';document.getElementById('inc-note').value='';
-  save();render();toast('Income added ✓');
+  save();render();toast('Income added'+(wallet?' — '+wallet.label+' updated':'')+' ✓');
 }
 function onExpCatChange(){
   const cat=document.getElementById('exp-cat').value;
@@ -1559,9 +1576,7 @@ function addWallet(){
   const balEl=document.getElementById('new-wallet-bal');
   const name=(nameEl.value||'').trim();
   const bal=parseFloat(balEl.value)||0;
-  name=name.trim();
   if(!name){toast('Enter a wallet name','error');return;}
-  if(name.length>24){toast('Name too long (max 24 chars)','error');return;}
   if(name.length>24){toast('Name too long (max 24 chars)','error');return;}
   const id='w'+Date.now();
   if(!state.wallets)state.wallets=[];
@@ -1594,6 +1609,14 @@ function adjustLoan(id,mode){
 async function del(type,id){
   const ok=await mtConfirm('Remove this entry?','🗑️','Remove','var(--red)');
   if(!ok)return;
+  // If removing income, reverse the wallet balance
+  if(type==='income'){
+    const entry=state.income.find(x=>x.id===id);
+    if(entry&&entry.wallet){
+      const w=(state.wallets||[]).find(w=>w.id===entry.wallet);
+      if(w){w.balance=Math.round((w.balance-entry.amount)*100)/100;w.updated=today();}
+    }
+  }
   state[type]=state[type].filter(x=>x.id!==id);
   save();render();toast('Removed');
 }
