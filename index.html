@@ -442,7 +442,7 @@ hr{border:none;border-top:1px solid var(--border);margin:18px 0}
   <div style="max-width:480px;width:100%;text-align:center">
     <div style="width:56px;height:56px;background:linear-gradient(135deg,rgba(180,242,101,.18),rgba(180,242,101,.06));border:1px solid rgba(180,242,101,.3);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:26px;margin:0 auto 20px;box-shadow:0 0 40px rgba(180,242,101,.12)">💵</div>
     <div style="font-family:var(--font-d);font-size:26px;font-weight:700;margin-bottom:4px">Money <span style="color:var(--accent)">Things</span></div>
-    <div style="font-size:12px;color:var(--muted);margin-bottom:36px">Personal Finance Tracker · v1.10</div>
+    <div style="font-size:12px;color:var(--muted);margin-bottom:36px">Personal Finance Tracker · v1.22</div>
     <div style="background:linear-gradient(135deg,var(--surface) 0%,var(--surface2) 100%);border:1px solid rgba(180,242,101,.18);border-radius:16px;padding:26px 28px;margin-bottom:28px;position:relative;overflow:hidden">
       <div style="position:absolute;top:-40px;right:-40px;width:160px;height:160px;background:radial-gradient(circle,rgba(180,242,101,.1) 0%,transparent 70%);pointer-events:none"></div>
       <div style="font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:rgba(180,242,101,.5);font-weight:600;margin-bottom:14px">✝ Word for Today</div>
@@ -624,7 +624,7 @@ hr{border:none;border-top:1px solid var(--border);margin:18px 0}
       <div class="card-hd"><div class="card-title">Add Entry</div></div>
       <div class="form-row">
         <div class="form-group"><label>Month</label>
-          <select id="inc-month"><option>January</option><option>February</option><option>March</option><option>April</option><option>May</option><option selected>June</option><option>July</option><option>August</option><option>September</option><option>October</option><option>November</option><option>December</option></select>
+        <select id="inc-month"><option>January</option><option>February</option><option>March</option><option>April</option><option>May</option><option>June</option><option>July</option><option>August</option><option>September</option><option>October</option><option>November</option><option>December</option></select>
         </div>
         <div class="form-group"><label>Year</label><select id="inc-year"></select></div>
       </div>
@@ -642,6 +642,10 @@ hr{border:none;border-top:1px solid var(--border);margin:18px 0}
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
         Add Entry
       </button>
+    </div>
+    <div class="card" id="inc-breakdown-card" style="display:none">
+      <div class="card-hd"><div class="card-title">Total by Type</div><span id="inc-breakdown-badge" style="font-size:11px;color:var(--muted)">all time</span></div>
+      <div id="inc-breakdown" style="display:flex;gap:10px;flex-wrap:wrap"></div>
     </div>
     <div class="card">
       <div class="card-hd">
@@ -724,7 +728,7 @@ hr{border:none;border-top:1px solid var(--border);margin:18px 0}
           </div>
         </div>
       </div>
-      <div style="font-size:12px;color:var(--muted);margin-bottom:12px;padding:8px 12px;background:var(--accent-bg);border:1px solid rgba(180,242,101,.12);border-radius:var(--r-xs)" id="wallet-deduct-note">
+      <div style="font-size:12px;color:var(--muted);margin-bottom:12px;padding:8px 12px;background:var(--accent-bg);border:1px solid rgba(180,242,101,.12);border-radius:var(--r-xs)">
         💡 The amount will be automatically deducted from the selected wallet.
       </div>
       <button class="btn btn-primary" onclick="addExpense()">
@@ -732,6 +736,7 @@ hr{border:none;border-top:1px solid var(--border);margin:18px 0}
         Log Expense
       </button>
     </div>
+    <div id="recurring-panel" style="display:none"></div>
     <div class="card">
       <div class="card-hd">
         <div class="card-title">Expense Log</div>
@@ -754,7 +759,6 @@ hr{border:none;border-top:1px solid var(--border);margin:18px 0}
       <div id="expense-list"></div>
     </div>
   </div>
-
   <!-- ══ LOANS ══ -->
   <div id="loans" class="section">
     <div class="page-hd">
@@ -868,7 +872,7 @@ hr{border:none;border-top:1px solid var(--border);margin:18px 0}
     <!-- RECURRING EXPENSES MANAGER -->
     <div class="card" style="margin-bottom:14px">
       <div class="card-hd"><div class="card-title">↺ Recurring Expenses</div></div>
-      <div style="font-size:13px;color:var(--muted);margin-bottom:12px">Expenses marked as recurring. These remind you each month.</div>
+      <div style="font-size:13px;color:var(--muted);margin-bottom:12px">Expenses marked as recurring. Tap <strong>Log Now</strong> to re-log one for this month.</div>
       <div id="recurring-list"></div>
     </div>
 
@@ -918,7 +922,7 @@ hr{border:none;border-top:1px solid var(--border);margin:18px 0}
     <div class="card">
       <div class="card-hd"><div class="card-title">About</div></div>
       <div class="row"><span class="lbl">App</span><span style="font-size:13px;font-weight:500">Money Things</span></div>
-      <div class="row"><span class="lbl">Version</span><span style="font-size:13px;color:var(--muted)">1.10</span></div>
+      <div class="row"><span class="lbl">Version</span><span style="font-size:13px;color:var(--muted)">1.22</span></div>
       <div class="row" style="border-bottom:none"><span class="lbl">Storage</span><span style="font-size:13px;color:var(--muted)">Local (your device only)</span></div>
     </div>
   </div>
@@ -1105,20 +1109,41 @@ let expFilter='all';
 
 function today(){return new Date().toISOString().split('T')[0];}
 function loadState(){
+  const now=new Date();
+  const yr=now.getFullYear();
+  const curMo=MONTH_ORDER[now.getMonth()];
+  const prevMo=MONTH_ORDER[now.getMonth()===0?11:now.getMonth()-1];
+  const prevYr=now.getMonth()===0?yr-1:yr;
   const def={
     username:'',
     wallets:[
-      {id:'maya',label:'Maya',balance:0,updated:today()},
-      {id:'gcash',label:'GCash',balance:0,updated:today()},
-      {id:'coh',label:'Cash on Hand',balance:0,updated:today()},
+      {id:'maya',label:'Maya',balance:12450.00,updated:today()},
+      {id:'gcash',label:'GCash',balance:3280.50,updated:today()},
+      {id:'coh',label:'Cash on Hand',balance:850.00,updated:today()},
     ],
-    income:[],
-    expenses:[],
-    loans:[],
-    goals:[],
-    budgetLimit:0,
+    income:[
+      {id:1,month:prevMo,year:prevYr,type:'Salary',amount:18000,note:'Monthly salary',wallet:'maya'},
+      {id:2,month:curMo,year:yr,type:'Salary',amount:18000,note:'Monthly salary',wallet:'maya'},
+      {id:3,month:curMo,year:yr,type:'Bonus',amount:3000,note:'Performance bonus',wallet:'gcash'},
+    ],
+    expenses:[
+      {id:4,desc:'Jollibee',amount:350,cat:'food',source:'coh',date:today(),note:'lunch',recurring:false},
+      {id:5,desc:'Grab',amount:120,cat:'transport',source:'gcash',date:today(),note:'',recurring:false},
+      {id:6,desc:'Shopee',amount:890,cat:'shopping',source:'maya',date:today(),note:'new shirt',recurring:false},
+      {id:7,desc:'Meralco',amount:1200,cat:'utilities',source:'maya',date:(()=>{const d=new Date();d.setMonth(d.getMonth()-1);return d.toISOString().split('T')[0];})(),note:'',recurring:true},
+      {id:8,desc:'Netflix',amount:199,cat:'entertainment',source:'gcash',date:(()=>{const d=new Date();d.setMonth(d.getMonth()-1);return d.toISOString().split('T')[0];})(),note:'',recurring:true},
+    ],
+    loans:[
+      {id:9,name:'Carlo',amount:500,type:'receivable',note:'borrowed last week',settled:false},
+      {id:10,name:'Kuya Mike',amount:1500,type:'payable',note:'cash advance',settled:false},
+    ],
+    goals:[
+      {id:11,name:'Emergency Fund',target:50000,saved:15000,note:'3 months of expenses'},
+      {id:12,name:'New Laptop',target:35000,saved:8500,note:'For work from home'},
+    ],
+    budgetLimit:15000,
     pin:'',
-    nextId:1
+    nextId:12
   };
   try{
     const s=localStorage.getItem('moneyThingsV3');
@@ -1197,11 +1222,10 @@ function renderDash(){
   // Personalized greeting
   const _h=now.getHours();
   const _gr=_h<12?'Good morning':_h<17?'Good afternoon':'Good evening';
-  const _grFixed=_h<12?'Good morning':_h<17?'Good afternoon':'Good evening';
   const _nm=state.username?(', '+state.username):'';
   const _wave=_h<12?'☀️':_h<17?'👋':'🌙';
   const _gEl=document.getElementById('dash-greeting');
-  if(_gEl)_gEl.innerHTML=_grFixed+_nm+' <span style="font-size:22px">'+_wave+'</span>';
+  if(_gEl)_gEl.innerHTML=_gr+_nm+' <span style="font-size:22px">'+_wave+'</span>';
   document.getElementById('topbar-date').textContent=now.toLocaleDateString('en-PH',{month:'short',day:'numeric',year:'numeric'});
 
   const totalBal=(state.wallets||[]).reduce((a,w)=>a+w.balance,0);
@@ -1353,12 +1377,32 @@ function populateYearDropdown(){
   const sel=document.getElementById('inc-year');if(!sel)return;
   const curYear=new Date().getFullYear();sel.innerHTML='';
   for(let y=2030;y>=2018;y--){const opt=document.createElement('option');opt.value=y;opt.textContent=y;if(y===curYear)opt.selected=true;sel.appendChild(opt);}
+  // Set current month as default
+  const moSel=document.getElementById('inc-month');
+  if(moSel)moSel.value=MONTH_ORDER[new Date().getMonth()];
 }
 
 function renderIncome(){
   const totalInc=state.income.reduce((a,b)=>a+b.amount,0);
   const badge=document.getElementById('inc-total-badge');
   if(badge)badge.textContent=state.income.length?fmt(totalInc):'';
+  // Type breakdown
+  const bCard=document.getElementById('inc-breakdown-card');
+  const bEl=document.getElementById('inc-breakdown');
+  if(bCard&&bEl&&state.income.length){
+    bCard.style.display='';
+    const types=[{key:'Salary',cls:'badge-salary',color:'var(--accent)'},{key:'Bonus',cls:'badge-bonus',color:'var(--amber)'},{key:'Other',cls:'',color:'var(--muted)'}];
+    bEl.innerHTML=types.map(t=>{
+      const tot=state.income.filter(e=>e.type===t.key).reduce((a,b)=>a+b.amount,0);
+      const cnt=state.income.filter(e=>e.type===t.key).length;
+      if(!cnt)return '';
+      return `<div style="flex:1;min-width:120px;background:var(--surface2);border:1px solid var(--border2);border-radius:10px;padding:12px 14px">
+        <div style="font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:${t.color};font-weight:600;margin-bottom:4px">${t.key}</div>
+        <div style="font-family:var(--font-d);font-size:18px;font-weight:700;color:${t.color}">${fmt(tot)}</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:2px">${cnt} entr${cnt===1?'y':'ies'}</div>
+      </div>`;
+    }).join('');
+  } else if(bCard){bCard.style.display='none';}
   const sorted=[...state.income].sort((a,b)=>{const ya=a.year||2026,yb=b.year||2026;if(ya!==yb)return yb-ya;return MONTH_ORDER.indexOf(a.month)-MONTH_ORDER.indexOf(b.month);});
   if(!sorted.length){document.getElementById('income-list').innerHTML='<div class="empty"><div class="empty-icon">💵</div><div class="empty-title">No income entries yet</div><div class="empty-sub">Add your first entry above.</div></div>';return;}
   const years=[...new Set(sorted.map(e=>e.year||2026))].sort((a,b)=>b-a);
@@ -1367,7 +1411,7 @@ function renderIncome(){
     const entries=sorted.filter(e=>(e.year||2026)===yr);
     const yrTotal=entries.reduce((a,b)=>a+b.amount,0);
     html+=`<div style="margin-bottom:6px"><div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0 6px;border-bottom:1px solid var(--border);margin-bottom:2px"><span style="font-size:10px;text-transform:uppercase;letter-spacing:.09em;color:var(--muted2);font-weight:600">${yr}</span><span style="font-size:13px;font-weight:700;color:var(--accent)">${fmt(yrTotal)}</span></div>`;
-    entries.forEach(e=>{const _iw=(state.wallets||[]).find(w=>w.id===e.wallet);html+=`<div class="entry"><div class="info"><div class="name">${e.month}${e.note?' — '+e.note:''}</div><div class="meta"><span class="badge badge-${e.type.toLowerCase()}">${e.type}</span>${_iw?`<span style="font-size:11px;color:var(--muted)">→ ${_iw.label}</span>`:''}</div></div><div class="right"><span class="amt ap">${fmt(e.amount)}</span><button class="btn btn-danger btn-sm" onclick="del('income',${e.id})">Remove</button></div></div>`;});
+    entries.forEach(e=>{const _iw=(state.wallets||[]).find(w=>w.id===e.wallet);const _dateStr=e.dateAdded?`<span style="font-size:11px;color:var(--muted2)">added ${fmtDate(e.dateAdded)}</span>`:'';html+=`<div class="entry"><div class="info"><div class="name">${e.month}${e.note?' — '+e.note:''}</div><div class="meta"><span class="badge badge-${e.type.toLowerCase()}">${e.type}</span>${_iw?`<span style="font-size:11px;color:var(--muted)">→ ${_iw.label}</span>`:''} ${_dateStr}</div></div><div class="right"><span class="amt ap">${fmt(e.amount)}</span><button class="btn btn-danger btn-sm" onclick="del('income',${e.id})">Remove</button></div></div>`;});
     html+='</div>';
   });
   document.getElementById('income-list').innerHTML=html;
@@ -1420,18 +1464,62 @@ function renderBalances(){
 }
 
 function renderExpenses(){
-  const searchQ=(document.getElementById('exp-search')?.value||'').toLowerCase().trim();
-  let list=[...state.expenses].reverse();
-  if(expFilter!=='all')list=list.filter(e=>(e.cat||'other-exp')===expFilter);
-  if(searchQ)list=list.filter(e=>e.desc.toLowerCase().includes(searchQ)||(e.source||'').toLowerCase().includes(searchQ)||(e.note||'').toLowerCase().includes(searchQ));
-  const totalExp=state.expenses.reduce((a,b)=>a+b.amount,0);
-  const filtered=list.reduce((a,b)=>a+b.amount,0);
-  const badge=document.getElementById('exp-total-badge');
-  if(badge)badge.textContent=state.expenses.length?(searchQ||expFilter!=='all'?`${fmt(filtered)} of ${fmt(totalExp)}`:fmt(totalExp)):'';
+  // ── Recurring panel ──────────────────────────────────────
+  var panel=document.getElementById('recurring-panel');
+  if(panel){
+    var n=new Date(), cm=n.getMonth(), cy=n.getFullYear();
+    var loggedSet=new Set();
+    state.expenses.forEach(function(e){
+      var d=new Date(e.date);
+      if(e.recurring && !isNaN(d) && d.getMonth()===cm && d.getFullYear()===cy) loggedSet.add(e.desc);
+    });
+    var templates=[];
+    var seen={};
+    state.expenses.forEach(function(e){
+      if(e.recurring && !seen[e.desc]){ seen[e.desc]=true; templates.push(e); }
+    });
+    if(templates.length){
+      var rows=templates.map(function(e){
+        var wl=(state.wallets||[]).find(function(w){return w.id==e.source;});
+        var done=loggedSet.has(e.desc);
+        var btn=done
+          ? '<span style="font-size:12px;color:var(--accent);font-weight:600;white-space:nowrap">✓ Logged</span>'
+          : '<button style="padding:6px 14px;background:var(--accent);color:#080808;border:none;border-radius:7px;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--font-b)" onclick="window.logRecurring('+e.id+')">Log Now</button>';
+        return '<div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border);gap:12px">'
+          +'<div><div style="font-size:13px;font-weight:500">'+esc(e.desc)+'</div>'
+          +'<div style="font-size:11px;color:var(--muted);margin-top:2px">'+fmt(e.amount)+(wl?' · '+wl.label:'')+' · monthly</div></div>'
+          +btn+'</div>';
+      }).join('');
+      panel.innerHTML='<div style="background:var(--surface);border:1px solid rgba(167,139,250,.35);border-radius:14px;padding:18px 20px;margin-bottom:14px">'
+        +'<div style="font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--purple);font-weight:700;margin-bottom:12px">↺ Recurring This Month</div>'
+        +rows+'</div>';
+      panel.style.display='';
+    } else {
+      panel.style.display='none';
+    }
+  }
+
+  // ── Expense list ─────────────────────────────────────────
+  var searchQ=(document.getElementById('exp-search')?document.getElementById('exp-search').value:'').toLowerCase().trim();
+  var list=[...state.expenses].reverse();
+  if(expFilter!=='all') list=list.filter(function(e){return (e.cat||'other-exp')===expFilter;});
+  if(searchQ) list=list.filter(function(e){return e.desc.toLowerCase().includes(searchQ)||(e.source||'').toLowerCase().includes(searchQ)||(e.note||'').toLowerCase().includes(searchQ);});
+  var totalExp=state.expenses.reduce(function(a,b){return a+b.amount;},0);
+  var filtered=list.reduce(function(a,b){return a+b.amount;},0);
+  var badge=document.getElementById('exp-total-badge');
+  if(badge) badge.textContent=state.expenses.length?(searchQ||expFilter!=='all'?fmt(filtered)+' of '+fmt(totalExp):fmt(totalExp)):'';
   document.getElementById('expense-list').innerHTML=list.length
-    ?list.map(e=>{const wl=(state.wallets||[]).find(w=>w.id===e.source);const srcLabel=wl?wl.label:e.source;return `<div class="entry"><div class="info"><div class="name">${e.desc}${e.recurring?'<span class="badge badge-recurring" style="margin-left:6px;font-size:9px">↺ recurring</span>':''}</div><div class="meta">${fmtDate(e.date)} · ${srcLabel}${e.note?' · <em style="color:var(--muted)">'+esc(e.note)+'</em>':''}<span class="badge badge-${e.cat||'other-exp'}">${CAT_LABELS[e.cat||'other-exp']}</span></div></div><div class="right"><span class="amt an">${fmt(e.amount)}</span><button class="btn btn-danger btn-sm" onclick="del('expenses',${e.id})">Remove</button></div></div>`;}).join('')
-    :`<div class="empty"><div class="empty-icon">${searchQ?'🔍':'🧾'}</div><div class="empty-title">${searchQ?'No matching expenses':'No expenses yet'}</div><div class="empty-sub">${searchQ?'Try a different term.':'Start logging above.'}</div></div>`;
+    ?list.map(function(e){
+        var wl=(state.wallets||[]).find(function(w){return w.id===e.source;});
+        var srcLabel=wl?wl.label:e.source;
+        return '<div class="entry"><div class="info"><div class="name">'+e.desc+(e.recurring?'<span class="badge badge-recurring" style="margin-left:6px;font-size:9px">↺ recurring</span>':'')+'</div>'
+          +'<div class="meta">'+fmtDate(e.date)+' · '+srcLabel+(e.note?' · <em style="color:var(--muted)">'+esc(e.note)+'</em>':'')+'<span class="badge badge-'+(e.cat||'other-exp')+'">'+CAT_LABELS[e.cat||'other-exp']+'</span></div></div>'
+          +'<div class="right"><span class="amt an">'+fmt(e.amount)+'</span>'
+          +'<button class="btn btn-danger btn-sm" onclick="del(\'expenses\','+e.id+')">Remove</button></div></div>';
+      }).join('')
+    :'<div class="empty"><div class="empty-icon">'+(searchQ?'🔍':'🧾')+'</div><div class="empty-title">'+(searchQ?'No matching expenses':'No expenses yet')+'</div><div class="empty-sub">'+(searchQ?'Try a different term.':'Start logging above.')+'</div></div>';
 }
+
 
 function renderLoans(){
   const payTotal=state.loans.filter(l=>l.type==='payable'&&!l.settled).reduce((a,b)=>a+b.amount,0);
@@ -1474,7 +1562,7 @@ function addIncome(){
     wallet.balance=Math.round((wallet.balance+amount)*100)/100;
     wallet.updated=today();
   }
-  state.income.push({id:uid(),month,year,type,amount,note,wallet:walletId});
+  state.income.push({id:uid(),month,year,type,amount,note,wallet:walletId,dateAdded:today()});
   document.getElementById('inc-amount').value='';document.getElementById('inc-note').value='';
   save();render();toast('Income added'+(wallet?' — '+wallet.label+' updated':'')+' ✓');
 }
@@ -1617,6 +1705,14 @@ async function del(type,id){
       if(w){w.balance=Math.round((w.balance-entry.amount)*100)/100;w.updated=today();}
     }
   }
+  // If removing expense, restore the wallet balance
+  if(type==='expenses'){
+    const entry=state.expenses.find(x=>x.id===id);
+    if(entry&&entry.source){
+      const w=(state.wallets||[]).find(w=>w.id===entry.source);
+      if(w){w.balance=Math.round((w.balance+entry.amount)*100)/100;w.updated=today();}
+    }
+  }
   state[type]=state[type].filter(x=>x.id!==id);
   save();render();toast('Removed');
 }
@@ -1680,6 +1776,10 @@ function exportMonthlyReport(){
   const isAll=sel==='all';
   const isYear=sel.startsWith('year-');
   const filterYear=isYear?parseInt(sel.replace('year-','')):null;
+  // For month filter, detect if it's a plain month name (filter current year only)
+  const isMonthOnly=!isAll&&!isYear;
+  const curYear=new Date().getFullYear();
+
   const totalBal=(state.wallets||[]).reduce((a,w)=>a+w.balance,0);
   const totalInc=state.income.reduce((a,b)=>a+b.amount,0);
   const totalExp=state.expenses.reduce((a,b)=>a+b.amount,0);
@@ -1691,15 +1791,16 @@ function exportMonthlyReport(){
 
   let filteredIncome=state.income,filteredExp=state.expenses;
   if(isYear){
-    filteredIncome=state.income.filter(i=>(i.year||2026)===filterYear);
+    filteredIncome=state.income.filter(i=>(i.year||curYear)===filterYear);
     filteredExp=state.expenses.filter(e=>{const d=new Date(e.date);return !isNaN(d)&&d.getFullYear()===filterYear;});
-  }else if(!isAll){
-    filteredIncome=state.income.filter(i=>i.month===sel);
-    filteredExp=state.expenses.filter(e=>{const d=new Date(e.date);return !isNaN(d)&&MONTH_ORDER[d.getMonth()]===sel;});
+  }else if(isMonthOnly){
+    // Month name only → filter to current year
+    filteredIncome=state.income.filter(i=>i.month===sel&&(i.year||curYear)===curYear);
+    filteredExp=state.expenses.filter(e=>{const d=new Date(e.date);return !isNaN(d)&&MONTH_ORDER[d.getMonth()]===sel&&d.getFullYear()===curYear;});
   }
 
   const monthYearKeys=[];const seen=new Set();
-  [...filteredIncome].forEach(i=>{const k=`${i.year||2026}-${i.month}`;if(!seen.has(k)){seen.add(k);monthYearKeys.push({year:i.year||2026,month:i.month});}});
+  [...filteredIncome].forEach(i=>{const k=`${i.year||curYear}-${i.month}`;if(!seen.has(k)){seen.add(k);monthYearKeys.push({year:i.year||curYear,month:i.month});}});
   filteredExp.forEach(e=>{const d=new Date(e.date);if(isNaN(d))return;const month=MONTH_ORDER[d.getMonth()];const year=d.getFullYear();const k=`${year}-${month}`;if(!seen.has(k)){seen.add(k);monthYearKeys.push({year,month});}});
   monthYearKeys.sort((a,b)=>a.year!==b.year?a.year-b.year:MONTH_ORDER.indexOf(a.month)-MONTH_ORDER.indexOf(b.month));
 
@@ -1822,21 +1923,9 @@ function exportMonthlyReport(){
   ${payTotal>0?`<div style="text-align:right;margin-top:6px;font-size:11px;color:#999">Total outstanding payable: <strong style="color:#dc2626">${fp(payTotal)}</strong></div>`:''}
 
   <div class="report-footer">
-    <span>Money Things v1.10 — Personal Finance Tracker</span>
+    <span>Money Things v1.22 — Personal Finance Tracker</span>
     <span>Confidential · For personal use only</span>
   </div>
-
-<!-- CONFIRM MODAL -->
-<div id="confirm-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);z-index:3000;align-items:center;justify-content:center;padding:20px">
-  <div style="background:var(--surface);border:1px solid var(--border2);border-radius:16px;padding:28px 28px 22px;max-width:340px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.2)">
-    <div id="confirm-icon" style="font-size:32px;margin-bottom:12px;text-align:center"></div>
-    <div id="confirm-msg" style="font-size:14px;color:var(--text);text-align:center;line-height:1.6;margin-bottom:22px"></div>
-    <div style="display:flex;gap:10px">
-      <button id="confirm-cancel-btn" onclick="confirmResolve(false)" style="flex:1;padding:10px;border-radius:9px;border:1px solid var(--border2);background:transparent;color:var(--muted);font-family:var(--font-b);font-size:13px;cursor:pointer">Cancel</button>
-      <button id="confirm-ok-btn" onclick="confirmResolve(true)" style="flex:1;padding:10px;border-radius:9px;border:none;background:var(--red);color:#fff;font-family:var(--font-d);font-size:13px;font-weight:700;cursor:pointer">Confirm</button>
-    </div>
-  </div>
-</div>
 
 </body>
 </html>`;
@@ -1861,7 +1950,7 @@ function renderGoals(){
       const cls=pct>=100?'over':pct>=75?'warn':'safe';
       const clr=pct>=100?'var(--red)':pct>=75?'var(--amber)':'var(--accent)';
       bs.innerHTML=`<div class="prog-wrap" style="margin-top:8px"><div class="prog-lbl"><span style="color:${clr};font-weight:600">${fmt(curExp)} spent of ${fmt(state.budgetLimit)}</span><span>${pct}%</span></div><div class="prog-track"><div class="prog-fill ${cls}" style="width:${pct}%"></div></div><div style="font-size:11px;color:var(--muted);margin-top:5px">${curMonthName} ${curYear} · ${state.budgetLimit-curExp>=0?fmt(state.budgetLimit-curExp)+' remaining':'Over by '+fmt(curExp-state.budgetLimit)}</div></div>`;
-      if(document.getElementById('budget-input'))document.getElementById('budget-input').placeholder=state.budgetLimit;
+      if(document.getElementById('budget-input'))document.getElementById('budget-input').placeholder=state.budgetLimit>0?state.budgetLimit:'e.g. 15000';
     } else {
       bs.innerHTML='<div style="font-size:12px;color:var(--muted2);margin-top:6px">No budget set yet.</div>';
     }
@@ -1877,7 +1966,7 @@ function renderGoals(){
       <div class="goal-meta">${g.note||'Savings goal'}</div>
       <div class="goal-pct">${pct}%</div>
       <div class="goal-amounts"><span class="goal-saved">${fmt(g.saved)} saved</span><span class="goal-target">of ${fmt(g.target)}</span></div>
-      <div class="prog-track"><div class="prog-fill ${pct>=100?'safe':pct>=60?'safe':'warn'}" style="width:${pct}%;background:${pct>=100?'var(--accent)':'var(--blue)'}"></div></div>
+      <div class="prog-track"><div class="prog-fill ${pct>=100?'safe':pct>=75?'warn':'warn'}" style="width:${pct}%;background:${pct>=100?'var(--accent)':'var(--blue)'}"></div></div>
       <div style="margin-top:10px;display:flex;gap:6px">
         <input type="number" id="gs-${g.id}" placeholder="Add savings..." min="0" style="flex:1;padding:6px 9px;font-size:12px">
         <button class="btn btn-primary btn-sm" onclick="addToGoal(${g.id})">+ Add</button>
@@ -2029,6 +2118,8 @@ function pinKey(k){
       if(pinBuffer===state.pin){
         document.getElementById('auth-overlay').style.display='none';
         pinBuffer='';
+        sessionStorage.setItem('mtUnlocked','1');
+        showSplash();
       } else {
         shakeDotsEl('pin-dots');
         document.getElementById('pin-error').textContent='Incorrect PIN. Try again.';
@@ -2190,8 +2281,22 @@ function renderSettings(){
   const rl=document.getElementById('recurring-list');
   if(rl){
     const recurrings=[...new Map(state.expenses.filter(e=>e.recurring).map(e=>[e.desc,e])).values()];
+    const now2=new Date();
+    const curMo2=now2.getMonth(),curYr2=now2.getFullYear();
+    const loggedThisMo=new Set(state.expenses.filter(e=>{const d=new Date(e.date);return e.recurring&&!isNaN(d)&&d.getMonth()===curMo2&&d.getFullYear()===curYr2;}).map(e=>e.desc));
     rl.innerHTML=recurrings.length
-      ?recurrings.map(e=>`<div class="row"><span class="lbl">${e.desc} <span class="badge badge-recurring" style="font-size:9px">↺</span></span><span style="font-size:12px;color:var(--muted)">${fmt(e.amount)} · ${CAT_LABELS[e.cat||'other-exp']}</span></div>`).join('')
+      ?recurrings.map(e=>{
+        const done=loggedThisMo.has(e.desc);
+        return `<div class="row" style="align-items:center">
+          <div style="flex:1;min-width:0">
+            <div style="font-size:13px;font-weight:500;display:flex;align-items:center;gap:6px">${esc(e.desc)}<span class="badge badge-recurring" style="font-size:9px">↺</span></div>
+            <div style="font-size:11px;color:var(--muted)">${fmt(e.amount)} · ${CAT_LABELS[e.cat||'other-exp']}</div>
+          </div>
+          ${done
+            ?'<span style="font-size:11px;color:var(--accent);font-weight:600">✓ Logged</span>'
+            :`<button class="btn btn-primary btn-sm" onclick="logRecurring(${e.id})">Log Now</button>`}
+        </div>`;
+      }).join('')
       :'<div style="font-size:13px;color:var(--muted2);padding:8px 0">No recurring expenses yet. Mark an expense as recurring when logging it.</div>';
   }
 }
@@ -2432,11 +2537,57 @@ initAuth();
 setTimeout(()=>{
   const now=new Date();
   const curMo=now.getMonth(),curYr=now.getFullYear();
-  const loggedThisMonth=new Set(state.expenses.filter(e=>{const d=new Date(e.date);return !isNaN(d)&&d.getMonth()===curMo&&d.getFullYear()===curYr;}).map(e=>e.desc));
+  const loggedThisMonth=new Set(
+    state.expenses
+      .filter(e=>{const d=new Date(e.date);return !isNaN(d)&&d.getMonth()===curMo&&d.getFullYear()===curYr;})
+      .map(e=>e.desc)
+  );
   const recurrings=[...new Map(state.expenses.filter(e=>e.recurring).map(e=>[e.desc,e])).values()];
   const missing=recurrings.filter(e=>!loggedThisMonth.has(e.desc));
-  if(missing.length){toast(`↺ Reminder: ${missing.length} recurring expense${missing.length>1?'s':''} not logged yet this month`);}
+  if(missing.length){toast('↺ '+missing.length+' recurring expense'+(missing.length>1?'s':'')+' not yet logged — go to Expenses');}
 },1800);
+
+window.logRecurring = function(templateId){
+  var id = parseInt(String(templateId), 10);
+  var template = null;
+  for(var i=0;i<state.expenses.length;i++){
+    if(parseInt(String(state.expenses[i].id),10)===id){ template=state.expenses[i]; break; }
+  }
+  if(!template){ toast('Could not find expense template','error'); return; }
+  var now=new Date(), cm=now.getMonth(), cy=now.getFullYear();
+  var alreadyLogged=state.expenses.some(function(e){
+    var d=new Date(e.date);
+    return e.recurring && e.desc===template.desc && !isNaN(d) && d.getMonth()===cm && d.getFullYear()===cy;
+  });
+  if(alreadyLogged){ toast(template.desc+' already logged this month','error'); return; }
+  var wallet=(state.wallets||[]).find(function(w){ return w.id==template.source; });
+  if(wallet){
+    wallet.balance=Math.round((wallet.balance-template.amount)*100)/100;
+    wallet.updated=today();
+  }
+  state.expenses.push({
+    id:uid(), desc:template.desc, amount:template.amount,
+    cat:template.cat, source:template.source,
+    date:today(), note:template.note||'', recurring:true
+  });
+  save(); render();
+  toast(template.desc+' logged ✓'+(wallet?' — '+wallet.label+' updated':''));
+};
+
+
 </script>
+
+<!-- CONFIRM MODAL -->
+<div id="confirm-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);z-index:3000;align-items:center;justify-content:center;padding:20px">
+  <div style="background:var(--surface);border:1px solid var(--border2);border-radius:16px;padding:28px 28px 22px;max-width:340px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.2)">
+    <div id="confirm-icon" style="font-size:32px;margin-bottom:12px;text-align:center"></div>
+    <div id="confirm-msg" style="font-size:14px;color:var(--text);text-align:center;line-height:1.6;margin-bottom:22px"></div>
+    <div style="display:flex;gap:10px">
+      <button id="confirm-cancel-btn" onclick="confirmResolve(false)" style="flex:1;padding:10px;border-radius:9px;border:1px solid var(--border2);background:transparent;color:var(--muted);font-family:var(--font-b);font-size:13px;cursor:pointer">Cancel</button>
+      <button id="confirm-ok-btn" onclick="confirmResolve(true)" style="flex:1;padding:10px;border-radius:9px;border:none;background:var(--red);color:#fff;font-family:var(--font-d);font-size:13px;font-weight:700;cursor:pointer">Confirm</button>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
