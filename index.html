@@ -1450,33 +1450,17 @@ function loadState(){
   const def={
     username:'',
     wallets:[
-      {id:'maya',label:'Maya',balance:12450.00,updated:today()},
-      {id:'gcash',label:'GCash',balance:3280.50,updated:today()},
-      {id:'coh',label:'Cash on Hand',balance:850.00,updated:today()},
+      {id:'maya',label:'Maya',balance:0,updated:today()},
+      {id:'gcash',label:'GCash',balance:0,updated:today()},
+      {id:'coh',label:'Cash on Hand',balance:0,updated:today()},
     ],
-    income:[
-      {id:1,month:prevMo,year:prevYr,type:'Salary',amount:18000,note:'Monthly salary',wallet:'maya'},
-      {id:2,month:curMo,year:yr,type:'Salary',amount:18000,note:'Monthly salary',wallet:'maya'},
-      {id:3,month:curMo,year:yr,type:'Bonus',amount:3000,note:'Performance bonus',wallet:'gcash'},
-    ],
-    expenses:[
-      {id:4,desc:'Jollibee',amount:350,cat:'food',source:'coh',date:today(),note:'lunch',recurring:false},
-      {id:5,desc:'Grab',amount:120,cat:'transport',source:'gcash',date:today(),note:'',recurring:false},
-      {id:6,desc:'Shopee',amount:890,cat:'shopping',source:'maya',date:today(),note:'new shirt',recurring:false},
-      {id:7,desc:'Meralco',amount:1200,cat:'utilities',source:'maya',date:(()=>{const d=new Date();d.setMonth(d.getMonth()-1);return d.toISOString().split('T')[0];})(),note:'',recurring:true},
-      {id:8,desc:'Netflix',amount:199,cat:'entertainment',source:'gcash',date:(()=>{const d=new Date();d.setMonth(d.getMonth()-1);return d.toISOString().split('T')[0];})(),note:'',recurring:true},
-    ],
-    loans:[
-      {id:9,name:'Carlo',amount:500,type:'receivable',note:'borrowed last week',settled:false},
-      {id:10,name:'Kuya Mike',amount:1500,type:'payable',note:'cash advance',settled:false},
-    ],
-    goals:[
-      {id:11,name:'Emergency Fund',target:50000,saved:15000,note:'3 months of expenses'},
-      {id:12,name:'New Laptop',target:35000,saved:8500,note:'For work from home'},
-    ],
-    budgetLimit:15000,
+    income:[],
+    expenses:[],
+    loans:[],
+    goals:[],
+    budgetLimit:0,
     pin:'',
-    nextId:12
+    nextId:0
   };
   try{
     const s=localStorage.getItem('moneyThingsV3');
